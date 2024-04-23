@@ -1,4 +1,24 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
+
+#export DH_VERBOSE = 1
+
+export PYBUILD_NAME=markdown_callouts
 
 %:
-	dh $@
+	dh $@ --with mkdocs --buildsystem=pybuild
+
+override_dh_clean:
+	rm -rf html .pytest_cache
+	dh_clean
+
+override_dh_auto_build:
+	dh_auto_build
+ifeq (,$(findstring nodoc, $(DEB_BUILD_OPTIONS)))
+	PYTHONPATH=`dirname $$(find .pybuild/ -type d -name "*callout*dist-info" | head -n1)` \
+	    python3 -m mkdocs -v build --site-dir=html
+	rm html/sitemap.xml.gz
+endif
+
+override_dh_auto_test:
+	dh_auto_test -- --system=custom --test-args="{interpreter} -m pytest -v"
