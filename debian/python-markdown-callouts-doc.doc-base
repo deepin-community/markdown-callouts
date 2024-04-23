@@ -1,0 +1,9 @@
+Document: markdown-callouts
+Title: Python-Markdown extension adding a new block-level syntax
+Author: Oleh Prypin <oleh@pryp.in>
+Abstract: Extension for Python-Markdown: a classier syntax for admonitions
+Section: Debian
+
+Format: HTML
+Index: /usr/share/doc/python-markdown-callouts-doc/html/index.html
+Files: /usr/share/doc/python-markdown-callouts-doc/html/*.html
